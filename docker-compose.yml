@@ -40,9 +40,9 @@ services:
       - "80:80"
 
     environment:
-      - SCREENS_URL=screens.localhost
-      - API_URL=screens-api.localhost
-      - STATIC_URL=static.localhost
+      - URL_SCREENS=screens.localhost
+      - URL_API=screens-api.localhost
+      - URL_STATIC=static.localhost
 
     volumes:
       - ./nginx/html:/usr/share/nginx/html:ro
