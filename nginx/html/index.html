@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="http://static.localhost/favicon.svg" type="image/svg+xml">
+	<title>Foobar</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
+
+		img {
+			max-height: 85vh;
+		}
+	</style>
+	<script>
+		fetch("http://screens-api.localhost")
+			.then(res => res.text())
+			.then(data => document.querySelector("h1").textContent = data)
+	</script>
+</head>
+
+<body>
+	<h1></h1>
+	<img src="http://static.localhost/alligator.webp" alt="Cool alligator">
+</body>
+
+</html>

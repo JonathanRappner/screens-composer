@@ -1,0 +1,27 @@
+services:
+  api:
+    build: ./api
+
+    ports:
+      - "3000:3000"
+    
+    volumes:
+      - ./api/src:/app/src
+  
+  nginx:
+    build: ./nginx
+
+    ports:
+      - "80:80"
+
+    environment:
+      - SCREENS_URL=screens.localhost
+      - API_URL=screens-api.localhost
+      - STATIC_URL=static.localhost
+
+    volumes:
+      - ./nginx/html:/usr/share/nginx/html:ro
+      - ./nginx/static:/usr/share/nginx/static:ro
+
+    depends_on:
+      - api

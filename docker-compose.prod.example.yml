@@ -1,0 +1,7 @@
+# copy this file with the new file name docker-compose.prod.yml
+services:
+  nginx:
+    environment:
+      - SCREENS_URL=screens.example.com
+      - API_URL=screens-api.example.com
+      - STATIC_URL=static.example.com
