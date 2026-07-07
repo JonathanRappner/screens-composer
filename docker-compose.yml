@@ -1,15 +1,40 @@
 services:
   api:
     build: ./api
+    restart: on-failure:3
 
     ports:
       - "3000:3000"
-    
+
+    environment:
+      - DB_HOST=database
+      - DB_PORT=3306
+      - DB_NAME=screens
+      - DB_USER=dbuser
+      - DB_PASSWORD=${MARIADB_PASSWORD}
+
     volumes:
       - ./api/src:/app/src
-  
+
+  database:
+    image: mariadb:12.3.2
+    restart: on-failure:3
+
+    ports:
+      - "127.0.0.1:3306:3306" # only allow local connections
+
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=screens
+      - MARIADB_USER=dbuser
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+
+    volumes:
+      - db_data:/var/lib/mysql
+
   nginx:
     build: ./nginx
+    restart: on-failure:3
 
     ports:
       - "80:80"
@@ -25,3 +50,7 @@ services:
 
     depends_on:
       - api
+      - database
+
+volumes:
+  db_data:
